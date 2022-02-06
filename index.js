@@ -30,35 +30,25 @@ const finder = (candidate, languages, matches) => {
   } else if ( // Found at least one match and candidates data is not empty
     counter > 0 &&
     matches.length !== 0 &&
-    candidate.counter > matches[0].counter // Aaaand the current candidate has less skills(does it matter?)
+    candidate.counter > matches[0].counter // Aaaand the currently stored candidate has less skills
   ) {
-    // Since other requested skills don't matter
-    // clear the matches recursively with our helper function
-    // and add the new one
-    clear(matches);
+    // Since other non requested skills don't matter
+    // clear the matches and add the new one
+    matches.splice(0,matches.length);
 
     // Add the current candidate to the matches list
     matches.push(candidate);
   } else if ( // Found at least one match and candidates data is not empty
     counter > 0 &&
     matches.length !== 0 &&
-    candidate.counter === matches[0].counter // Buuut the current candidate has same amount of skills(does it matter?)
+    candidate.counter === matches[0].counter // Buuut the currently stored candidate has the same amount of skills
   ) {
-    // Since other requested skills don't matter
-    // clear the matches recursively with our helper function
-    // and add the new one
-    clear(matches);
+    // Since other non requested skills don't matter
+    // clear the matches and add the new one
+    matches.splice(0,matches.length);
     matches.push(candidate);
   }
   };
-
-// clear -helper function 
-const clear = (matches) => {
-  matches.pop();
-  if (matches.length > 0) {
-    remover(matches);
-  }
-};
 
 app.post('/candidates', function(req, res) {
   // ...
